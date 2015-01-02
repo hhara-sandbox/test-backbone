@@ -9,12 +9,17 @@ var app = app || {};
             "click .js-reset": "resetAllModel"
         },
         initialize: function(){
-            this.$headings = this.$("h1");
+            this.$headings = this.$(".js-heading-wrapper");
 
             this.$headings.each(_.bind(this.addHeadings, this));
         },
         addHeadings: function(index, element){
-            var new_model = new app.HeadingStatus();
+            var heading_text = $(element).find("h1").text();
+
+            var new_model = new app.HeadingStatus({
+                text: heading_text
+            });
+
             this.collection.add(new_model);
 
             new app.HeadingView({ el: element, model: new_model });
